@@ -1,0 +1,13 @@
+# Company AI Governance and Security Policy 2026
+
+## 1. Scope and Objective
+This document defines the mandatory security standards for deploying Large Language Models (LLMs) and Vector Databases across enterprise infrastructure.
+
+## 2. API Key Management
+All production OpenAI, Anthropic, and Qdrant Cloud API keys must be provisioned via HashiCorp Vault with automated 60-day rotation cycles. Zero hardcoded API tokens are permitted in code repositories or Docker images.
+
+## 3. Vector Database Storage and Data Privacy
+Customer embeddings generated via text-embedding-3-large (3072 dimensions) must be stored in encrypted Qdrant collections with TLS 1.3 in-transit encryption and AES-256 at-rest disk encryption. Under GDPR and SOC2 compliance, any vector containing Personally Identifiable Information (PII) must be anonymized before embedding generation.
+
+## 4. Model Versioning
+Engineering teams must maintain deterministic fallback pipelines. Whenever upgrading embedding models from legacy 768-dim models to 3072-dim models, collections must be dual-written during a 14-day canary validation period before decommissioning old collections.
